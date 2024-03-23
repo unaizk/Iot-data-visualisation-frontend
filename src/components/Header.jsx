@@ -7,10 +7,17 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLogoutMutation } from '../slices/userApiSlice';
+import { logout } from '../slices/authSlice';
 
 const Header = () => {
   const [openNav, setOpenNav] = React.useState(false);
   const navigate = useNavigate();
+  const [logoutApiCall, {isLoading}] = useLogoutMutation()
+  const dispatch = useDispatch()
+
+  const { userInfo } = useSelector((state) => state.auth);
 
 
   React.useEffect(() => {
@@ -31,6 +38,18 @@ const Header = () => {
     };
   }, []);
 
+
+  const handleLogoutClick = async() => {
+    try {
+        await logoutApiCall().unwrap()
+        dispatch(logout())
+        navigate('/login')
+    } catch (err) {
+        console.log(err);
+    }
+    
+  };
+
   return (
     <div className="overflow-x-hidden shadow-md">
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
@@ -44,24 +63,34 @@ const Header = () => {
             IOT DATA
           </Typography>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-x-1">
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-                onClick={() =>{navigate('/login')}}
-              >
-                <span>Log In</span>
-              </Button>
-              <Button
-                variant="gradient"
-                size="sm"
-                className="hidden lg:inline-block"
-                onClick={() =>{navigate('/signin')}}
-              >
-                <span>Sign in</span>
-              </Button>
-            </div>
+            {userInfo ? (
+            <Button
+            variant="gradient"
+            size="sm"
+            className="hidden lg:inline-block"
+            onClick={handleLogoutClick}
+          >
+            <span>Logout</span>
+            </Button>
+          ) : <div className="flex items-center gap-x-1">
+          <Button
+            variant="text"
+            size="sm"
+            className="hidden lg:inline-block"
+            onClick={() =>{navigate('/login')}}
+          >
+            <span>Log In</span>
+          </Button>
+          <Button
+            variant="gradient"
+            size="sm"
+            className="hidden lg:inline-block"
+            onClick={() =>{navigate('/signin')}}
+          >
+            <span>Sign in</span>
+          </Button>
+        </div>}
+            
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -102,14 +131,17 @@ const Header = () => {
           </div>
         </div>
         <Collapse open={openNav}>
-          <div className="flex flex-col lg:flex-row lg:items-center gap-x-1">
+          {userInfo ? (<Button fullWidth variant="gradient" size="sm" className="pt-5 lg:pt-0" onClick={handleLogoutClick}>
+              <span>Logout</span>
+            </Button>) : (<div className="flex flex-col lg:flex-row lg:items-center gap-x-1">
             <Button fullWidth variant="text" size="sm" className="pt-5 lg:pt-0" onClick={() =>{navigate('/login')}}>
               <span>Log In</span>
             </Button>
             <Button fullWidth variant="gradient" size="sm" className="pt-5 lg:pt-0" onClick={() =>{navigate('/signin')}}>
               <span>Sign in</span>
             </Button>
-          </div>
+          </div>)}
+          
         </Collapse>
       </Navbar>
     </div>

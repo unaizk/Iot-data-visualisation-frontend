@@ -17,16 +17,26 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
   console.log('hello');
+
+
   const submitHandler = async(req,res) =>{
     try {
       console.log('reached here');
-      const res = await login({email,password}).unwrap()
+      const response = await login({email,password}).unwrap()
+      console.log(response,'hhhh');
       dispatch(setCredentials({...res}));
-      navigate('/login')
+      navigate('/')
+      
   } catch (err) {
-    toast.error(err?.data?.message || err.error);
+    
+    toast.error(err?.data || err.error);
   }
   }
+
+  const handleRegisterClick = () => {
+  
+    navigate('/signin');
+  };
 
   useEffect(()=>{
     if(userInfo){
@@ -67,10 +77,11 @@ const LoginScreen = () => {
       </div>
     </div>
 
-    <p className="mt-10 text-center text-sm text-gray-500">
-      Not a member?
-      <a href="#" className="font-semibold leading-6 text-black hover:text-slate-500">SignIn</a>
-    </p>
+    <div className="text-center mt-6">
+            <p className="text-gray-600 text-sm">
+              Not a member ? <span className="font-bold cursor-pointer text-black-100" onClick={handleRegisterClick}>Signin</span>
+            </p>
+    </div>
   </div>
 </div>
   )
