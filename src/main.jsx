@@ -9,6 +9,8 @@ import AdminLogin from './screens/AdminLogin.jsx'
 import AdminSignin from './screens/AdminSignin.jsx'
 import store from './store.js';
 import { Provider } from 'react-redux'
+import { PrivateRouter } from './components/PrivateRouter.jsx';
+import UserHomeScreen from './screens/UserHomeScreen.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,7 +20,10 @@ const router = createBrowserRouter(
      
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/signin' element={<SigninScreen />} />
-      
+      {/*================================= Private Router========================================== */}
+      <Route path="" element = {<PrivateRouter />}>
+          <Route index={true} path='/' element={<UserHomeScreen />} />   
+      </Route>
      {/*================================= admin route handler========================================== */}
 
       <Route path="/admin/login" element={<AdminLogin />} />
@@ -28,7 +33,9 @@ const router = createBrowserRouter(
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <Provider store={store}>
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>,
+  </Provider>
 )
