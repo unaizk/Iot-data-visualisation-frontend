@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import { useUserEditMutation } from '../slices/adminApiSlice';
 import {toast} from 'react-toastify'
+import Loader from '../components/Loader';
 
 const EditUser = () => {
    
@@ -54,9 +55,11 @@ const EditUser = () => {
      
       
      
-     
+      {isLoading  && <Loader />}
       <div className="md:flex md:items-center">
+      
         <div className="md:w-1/3"></div>
+        
         <div className="md:w-2/3">
           <button
             className="shadow bg-black hover:bg-gray-800 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"

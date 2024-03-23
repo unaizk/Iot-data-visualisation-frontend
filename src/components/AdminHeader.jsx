@@ -67,6 +67,14 @@ const AdminHeader = () => {
                 <span className='mx-auto text-sm'>{`Welcome ${adminInfo.name}`}</span>
                 </div>
                 <Button
+                  variant="text"
+                  size="sm"
+                  className="hidden lg:inline-block"
+                  onClick={() =>{navigate('/admin/dashboard')}}
+                >
+                  <span>Dashboard</span>
+                </Button>
+                <Button
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block"
@@ -136,9 +144,21 @@ const AdminHeader = () => {
             </div>
           </div>
           <Collapse open={openNav}>
-            {adminInfo ? (<Button fullWidth variant="gradient" size="sm" className="pt-5 lg:pt-0" onClick={handleLogoutClick}>
+            {adminInfo ? (
+              <>
+                <Button
+                  variant="text"
+                  size="sm"
+                  className="hidden lg:inline-block"
+                  onClick={() =>{navigate('/admin/dashboard')}}
+                >
+                  <span>Dashboard</span>
+                </Button>
+                <Button fullWidth variant="gradient" size="sm" className="pt-5 lg:pt-0" onClick={handleLogoutClick}>
                 <span>Logout</span>
-              </Button>) : (
+              </Button>
+              </>
+              ) : (
                 <div className="flex flex-col lg:flex-row lg:items-center gap-x-1">
                 <Button fullWidth variant="text" size="sm" className="pt-5 lg:pt-0" onClick={() =>{navigate('/admin/login')}}>
                   <span>Log In</span>

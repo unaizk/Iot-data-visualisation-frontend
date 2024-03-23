@@ -4,11 +4,14 @@ import { useUserListMutation } from '../slices/adminApiSlice';;
 import {toast} from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
+import { useUserDeleteMutation } from '../slices/adminApiSlice';
 
 const Dashboard = () => {
     const [users, setUsers] = useState([])
     const navigate = useNavigate()
-    const [getUsers, {isLoading} ] = useUserListMutation()
+    const [getUsers, {isLoading} ] = useUserListMutation();
+    const [refreshToggle, setRefreshToggle] = useState(false);
+    const [userDelete]  = useUserDeleteMutation()
     useEffect(() =>{
         const getAllUsers = async() =>{
             try {
@@ -19,7 +22,7 @@ const Dashboard = () => {
             }
         }
         getAllUsers()
-    },[])
+    },[refreshToggle])
 
     let serialNumber = 1;
 
@@ -30,8 +33,20 @@ const Dashboard = () => {
           navigate(`/admin/editUser`, { state: { user: userToEdit } });
         }
       };
+
+      const handleDelete = async(userId) =>{
+        try {
+            await userDelete({userId}).unwrap();
+            setRefreshToggle(!refreshToggle);
+            toast.error("User Deleted succesfully")
+        } catch (error) {
+            toast.error(err?.data || err.error);
+        }
+      }
   return (
+    
     <div className="overflow-x-auto shadow-md sm:rounded-lg pt-20">
+        {isLoading  && <Loader />}
       <table className="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-md text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -71,7 +86,7 @@ const Dashboard = () => {
                   <button
                     type="button"
                     className="inline-block bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    onClick={() => {}}
+                    onClick={() =>handleDelete(user.id)}
                   >
                     Delete
                   </button>
