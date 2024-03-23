@@ -7,12 +7,28 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useAdminLogoutMutation } from '../slices/adminApiSlice';
+import { adminLogout } from '../slices/adminAuthSlice';
 
 
 const AdminHeader = () => {
     const [openNav, setOpenNav] = React.useState(false);
     const navigate = useNavigate();
-  
+
+    const [adminLogoutApiCall, {isLoading} ] = useAdminLogoutMutation();
+    const dispatch = useDispatch();
+    const { adminInfo } = useSelector((state) => state.adminAuth);
+
+    const handleLogoutClick = async () => {
+      try {
+        await adminLogoutApiCall().unwrap();
+        dispatch(adminLogout());
+        navigate('/admin/login');
+      } catch (err) {
+        console.log(err);
+      }
+    };
   
     React.useEffect(() => {
       // Function to handle window resize event
@@ -45,7 +61,22 @@ const AdminHeader = () => {
               IOT DATA ADMIN
             </Typography>
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-x-1">
+              {adminInfo ? (
+                <>
+                <div className="bg-gray-50 rounded-full p-3 mr-4 cursor-pointer">
+                <span className='mx-auto text-sm'>{`Welcome ${adminInfo.name}`}</span>
+                </div>
+                <Button
+                variant="gradient"
+                size="sm"
+                className="hidden lg:inline-block"
+                onClick={handleLogoutClick}
+              >
+                <span>Logout</span>
+              </Button>
+              </>
+              ) : (
+                <div className="flex items-center gap-x-1">
                 <Button
                   variant="text"
                   size="sm"
@@ -63,6 +94,8 @@ const AdminHeader = () => {
                   <span>Sign in</span>
                 </Button>
               </div>
+              )}
+              
               <IconButton
                 variant="text"
                 className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -103,14 +136,19 @@ const AdminHeader = () => {
             </div>
           </div>
           <Collapse open={openNav}>
-            <div className="flex flex-col lg:flex-row lg:items-center gap-x-1">
-              <Button fullWidth variant="text" size="sm" className="pt-5 lg:pt-0" onClick={() =>{navigate('/admin/login')}}>
-                <span>Log In</span>
-              </Button>
-              <Button fullWidth variant="gradient" size="sm" className="pt-5 lg:pt-0" onClick={() =>{navigate('/admin/signin')}}>
-                <span>Sign in</span>
-              </Button>
-            </div>
+            {adminInfo ? (<Button fullWidth variant="gradient" size="sm" className="pt-5 lg:pt-0" onClick={handleLogoutClick}>
+                <span>Logout</span>
+              </Button>) : (
+                <div className="flex flex-col lg:flex-row lg:items-center gap-x-1">
+                <Button fullWidth variant="text" size="sm" className="pt-5 lg:pt-0" onClick={() =>{navigate('/admin/login')}}>
+                  <span>Log In</span>
+                </Button>
+                <Button fullWidth variant="gradient" size="sm" className="pt-5 lg:pt-0" onClick={() =>{navigate('/admin/signin')}}>
+                  <span>Sign in</span>
+                </Button>
+              </div>
+              )}
+            
           </Collapse>
         </Navbar>
       </div>

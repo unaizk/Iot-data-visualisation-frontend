@@ -49,6 +49,7 @@ const Header = () => {
     }
     
   };
+  
 
   return (
     <div className="overflow-x-hidden shadow-md">
@@ -63,33 +64,42 @@ const Header = () => {
             IOT DATA
           </Typography>
           <div className="flex items-center gap-4">
-            {userInfo ? (
-            <Button
-            variant="gradient"
-            size="sm"
-            className="hidden lg:inline-block"
-            onClick={handleLogoutClick}
-          >
-            <span>Logout</span>
-            </Button>
-          ) : <div className="flex items-center gap-x-1">
-          <Button
-            variant="text"
-            size="sm"
-            className="hidden lg:inline-block"
-            onClick={() =>{navigate('/login')}}
-          >
-            <span>Log In</span>
-          </Button>
-          <Button
-            variant="gradient"
-            size="sm"
-            className="hidden lg:inline-block"
-            onClick={() =>{navigate('/signin')}}
-          >
-            <span>Sign in</span>
-          </Button>
-        </div>}
+          {userInfo ? (
+            <>
+          <div className="bg-gray-50 rounded-full p-3 mr-4 cursor-pointer">
+          <span className='mx-auto text-sm'>{`Welcome ${userInfo.name}`}</span>
+          </div>
+    <Button
+      variant="gradient"
+      size="sm"
+      className="hidden lg:inline-block ml-2"
+      onClick={handleLogoutClick}
+    >
+      <span>Logout</span>
+    </Button>
+    </>
+  
+) : (
+  <div className="flex items-center gap-x-1">
+    <Button
+      variant="text"
+      size="sm"
+      className="hidden lg:inline-block"
+      onClick={() => navigate('/login')}
+    >
+      <span>Log In</span>
+    </Button>
+    <Button
+      variant="gradient"
+      size="sm"
+      className="hidden lg:inline-block"
+      onClick={() => navigate('/signin')}
+    >
+      <span>Sign in</span>
+    </Button>
+  </div>
+)}
+
             
             <IconButton
               variant="text"

@@ -24,7 +24,7 @@ const LoginScreen = () => {
       console.log('reached here');
       const response = await login({email,password}).unwrap()
       console.log(response,'hhhh');
-      dispatch(setCredentials({...res}));
+      dispatch(setCredentials({...response}));
       navigate('/')
       
   } catch (err) {
