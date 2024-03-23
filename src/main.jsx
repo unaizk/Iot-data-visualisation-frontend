@@ -13,6 +13,8 @@ import { PrivateRouter } from './components/PrivateRouter.jsx';
 import UserHomeScreen from './screens/UserHomeScreen.jsx'
 import AdminHomeScreen from './screens/AdminHomeScreen.jsx'
 import { AdminPrivateRouter } from './components/AdminPrivateRouter.jsx'
+import Dashboard from './screens/Dashboard.jsx'
+import EditUser from './screens/EditUser.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +34,8 @@ const router = createBrowserRouter(
       <Route path="/admin/signin" element={<AdminSignin />} />
       <Route path="" element = {<AdminPrivateRouter />}>
           <Route index={true} path="/admin" element={<AdminHomeScreen />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/editUser" element={<EditUser />} />
       </Route>
     </Route>
   )
