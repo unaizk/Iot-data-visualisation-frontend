@@ -44,8 +44,14 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 body : data
             })
         }),
+        adminIotData : builder.mutation({
+            query : ()=>({
+                url : `/api/admin/admin-iot-datas`,
+                method : 'GET'
+            })
+        }),
 
     })
 })
 
-export const  {useAdminLoginMutation , useAdminLogoutMutation , useAdminRegisterMutation, useUserListMutation, useUserEditMutation, useUserDeleteMutation} = adminApiSlice
+export const  {useAdminLoginMutation , useAdminLogoutMutation , useAdminRegisterMutation, useUserListMutation, useUserEditMutation, useUserDeleteMutation, useAdminIotDataMutation} = adminApiSlice

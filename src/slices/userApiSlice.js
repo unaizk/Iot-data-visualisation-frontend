@@ -25,9 +25,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method : 'POST'
             })
         }),
+        iotData : builder.mutation({
+            query : ()=>({
+                url : `${USER_URL}/iot-datas`,
+                method : 'GET'
+            })
+        }),
     
     })
 })
 
 
-export const {useLoginMutation, useRegisterMutation, useLogoutMutation} = userApiSlice
+export const {useLoginMutation, useRegisterMutation, useLogoutMutation, useIotDataMutation} = userApiSlice
