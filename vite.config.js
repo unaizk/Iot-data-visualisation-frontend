@@ -8,7 +8,7 @@ export default defineConfig({
     port : 3000,
     proxy : {
       '/api' : {
-        target : 'http://65.2.26.112:5000',
+        target : 'https://iot-data-backend.unaizk.com',
         changeOrigin : true
       }
     }
