@@ -29,13 +29,13 @@ const UserHomeScreen = () => {
                 colors: ["#000000", "#808080"],
                 chart: { id: `basic-bar-${index}` },
                 xaxis: {
-                  categories: categoryData?.map(item => item.data), // Assuming 'data' is the property containing the x-axis values
+                  categories: categoryData?.map(item => item.time), 
                 },
               }}
               series={[
                 {
                   name: "series-1",
-                  data: categoryData?.map(item => item.time), // Assuming 'data' is the property containing the y-axis values
+                  data: categoryData?.map(item => item.data), 
                 },
               ]}
               type="bar"
