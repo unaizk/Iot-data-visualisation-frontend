@@ -60,6 +60,9 @@ const Dashboard = () => {
               Email
             </th>
             <th scope="col" className="px-6 py-3">
+             User Roll
+            </th>
+            <th scope="col" className="px-6 py-3">
               Action
             </th>
             <th scope="col" className="px-6 py-3">
@@ -73,6 +76,7 @@ const Dashboard = () => {
                 <td className="px-6 py-4">{serialNumber++}</td>
                 <td className="px-6 py-4">{user.name}</td>
                 <td className="px-6 py-4">{user.email}</td>
+                <td className="px-6 py-4">{user.roll}</td>
                 <td className="px-6 py-4">
                   <button
                     type="button"
