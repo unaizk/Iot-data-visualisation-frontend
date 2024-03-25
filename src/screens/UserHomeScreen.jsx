@@ -16,12 +16,12 @@ const UserHomeScreen = () => {
     getIotDataFunction();
   }, []);
 
-  console.log(iotData,'llllllllllllllll');
+  
   return (
     <div className="chart flex flex-col items-center mt-8 mb-8">
       <h1 className="text-center mb-5 font-black text-2xl">IOT DATA VISUALISATION</h1>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {iotData.map((data) => (
+        {iotData?.map((data) => (
           <div className="col-4 mt-5 ">
           <h1 className="text-center">TWO DIGIT NUMBER</h1>
           {isLoading && <Loader />}
