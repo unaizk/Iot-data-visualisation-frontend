@@ -18,13 +18,13 @@ const EditUser = () => {
   const editSubmitHandle = async (e) => {
     e.preventDefault();
     try {
-      await userEdit({ userId, name }).unwrap();
+      await userEdit({ userId, name ,roll}).unwrap();
       toast.success("User Edited");
     } catch (err) {
       toast.error(err?.data || err.error);
     }
   };
-  console.log(roll,'rollllllllllllll');
+  
   return (
     <div className="pt-20">
       <h1 className="text-4xl font-bold text-center mb-8">Edit User</h1>
