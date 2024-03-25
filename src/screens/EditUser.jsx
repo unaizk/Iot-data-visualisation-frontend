@@ -24,6 +24,7 @@ const EditUser = () => {
       toast.error(err?.data || err.error);
     }
   };
+  console.log(roll,'rollllllllllllll');
   return (
     <div className="pt-20">
       <h1 className="text-4xl font-bold text-center mb-8">Edit User</h1>
