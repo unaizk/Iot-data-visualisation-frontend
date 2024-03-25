@@ -30,13 +30,13 @@ const UserHomeScreen = () => {
               colors: ["#000000", "#808080"],
               chart: { id: "basic-bar" },
               xaxis: {
-                categories: iotData?.twoDigitNumber?.map((data) => data.time),
+                categories: [],
               },
             }}
             series={[
               {
                 name: "series-1",
-                data: iotData?.twoDigitNumber?.map((data) => data.data),
+                data: [],
               },
             ]}
             type="bar"
