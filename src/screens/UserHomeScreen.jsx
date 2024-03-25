@@ -10,7 +10,7 @@ const UserHomeScreen = () => {
   useEffect(() => {
     const getIotDataFunction = async () => {
       const res = await getIotData().unwrap();
-      console.log(res);
+      console.log(res,'fffff');
       setIotData(res);
     };
     getIotDataFunction();
